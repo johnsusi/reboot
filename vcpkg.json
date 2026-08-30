@@ -1,0 +1,45 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+    "dependencies": [
+        {
+            "name": "assimp"
+        },
+        {
+            "name": "bullet3",
+            "features": []
+        },
+        {
+            "name": "glad",
+            "features": [
+                "gl-api-33",
+                "loader"
+            ]
+        },
+        {
+            "name": "glm"
+        },
+        {
+            "name": "imgui",
+            "features": [
+                "opengl3-binding",
+                "sdl3-binding"
+            ]
+        },
+        {
+            "name": "lua",
+            "features": [
+                "cpp",
+                "tools"
+            ]
+        },
+        {
+            "name": "nlohmann-json"
+        },
+        {
+            "name": "sdl3"
+        },
+        {
+            "name": "stb"
+        }
+    ]
+}

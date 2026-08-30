@@ -1,0 +1,32 @@
+{
+    "$schema": "https://cmake.org/cmake/help/latest/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/${presetName}/build",
+            "installDir": "${sourceDir}/out/${presetName}/install",
+            "toolchainFile": "${sourceDir}/cmake/toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_CXX_EXTENSIONS": "NO",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "YES",
+                "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/cmake/triplets"
+            }
+        },
+        {
+            "name": "ci",
+            "hidden": true,
+            "inherits": [
+                "base"
+            ]
+        },
+        {
+            "name": "dev",
+            "hidden": true,
+            "inherits": [
+                "base"
+            ]
+        }
+    ]
+}

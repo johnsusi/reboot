@@ -1,0 +1,52 @@
+version: '3'
+
+dotenv:
+  - .env
+
+vars:
+  OUT: '{{ .OUT | default "out" }}'
+  CONFIG: '{{ .CONFIG | default "Debug" }}'
+  PRESET: '{{ .PRESET | default "default" }}'
+  BUILD_DIR: '{{ .OUT }}/{{ .PRESET }}/build'
+  CONFIGURE_ARGS: '{{ .CONFIGURE_ARGS | default "" }}'
+  BUILD_ARGS: '{{ .BUILD_ARGS | default "" }}'
+  TEST_ARGS: '{{ .TEST_ARGS | default "" }}'
+  INSTALL_ARGS: '{{ .INSTALL_ARGS | default "" }}'
+
+tasks:
+
+  default:
+    desc: Configure, build, and run tests
+    deps:
+      - test
+
+  configure:
+    desc: Configure the project with CMake
+    cmds:
+      - cmake --preset '{{ .PRESET }}' {{ .CONFIGURE_ARGS }}
+
+  build:
+    desc: Build the project
+    deps:
+      - configure
+    cmds:
+      - cmake --build '{{ .BUILD_DIR }}' --config '{{ .CONFIG }}' {{ .BUILD_ARGS }}
+
+  test:
+    desc: Build and run the test suite
+    deps:
+      - build
+    cmds:
+      - ctest --test-dir '{{ .BUILD_DIR }}' --build-config '{{ .CONFIG }}' --output-on-failure {{ .TEST_ARGS }}
+
+  install:
+    desc: Install the project
+    deps:
+      - build
+    cmds:
+      - cmake --install '{{ .BUILD_DIR }}' --config '{{ .CONFIG }}' {{ .INSTALL_ARGS }}
+
+  clean:
+    desc: Remove the preset's build and install directories
+    cmds:
+      - cmake -E remove_directory '{{ .OUT }}/{{ .PRESET }}'

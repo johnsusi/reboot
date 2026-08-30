@@ -1,0 +1,111 @@
+{
+    "$schema": "https://cmake.org/cmake/help/latest/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "clang",
+            "hidden": true,
+            "environment": {
+                "CC": "clang",
+                "CXX": "clang++"
+            }
+        },
+        {
+            "name": "clang-homebrew",
+            "hidden": true,
+            "environment": {
+                "CC": "/opt/homebrew/opt/llvm/bin/clang",
+                "CXX": "/opt/homebrew/opt/llvm/bin/clang++",
+                "PATH": "/opt/homebrew/opt/llvm/bin:$penv{PATH}"
+            }
+        },
+        {
+            "name": "gcc",
+            "hidden": true,
+            "environment": {
+                "CC": "gcc",
+                "CXX": "g++"
+            }
+        },
+        {
+            "name": "v142-x64",
+            "hidden": true,
+            "architecture": "x64",
+            "toolset": "v142",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows-v142"
+            }
+        },
+        {
+            "name": "v143-x64",
+            "hidden": true,
+            "architecture": "x64",
+            "toolset": "v143",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows-v143"
+            }
+        },
+        {
+            "name": "v145-x64",
+            "hidden": true,
+            "architecture": "x64",
+            "toolset": "v145",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows-v145"
+            }
+        },
+        {
+            "name": "gcc-msys2-ucrt64",
+            "hidden": true,
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-mingw-static"
+            },
+            "environment": {
+                "CC": "C:/msys64/ucrt64/bin/gcc.exe",
+                "CXX": "C:/msys64/ucrt64/bin/g++.exe",
+                "MSYSTEM": "UCRT64",
+                "PATH": "C:/msys64/ucrt64/bin;$penv{PATH}"
+            }
+        },
+        {
+            "name": "clang-msys2-clang64",
+            "hidden": true,
+            "cacheVariables": {
+                "MSYSTEM": "CLANG64",
+                "VCPKG_TARGET_TRIPLET": "x64-mingw-static"
+            },
+            "environment": {
+                "CC": "C:/msys64/clang64/bin/clang.exe",
+                "CXX": "C:/msys64/clang64/bin/clang++.exe",
+                "PATH": "C:/msys64/clang64/bin;$penv{PATH}"
+            }
+        },
+        {
+            "name": "osx",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "linux",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
+            "name": "windows",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        }
+    ]
+}
