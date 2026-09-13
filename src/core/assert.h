@@ -1,12 +1,12 @@
 #pragma once
 
+#include <expected>
 #include <format>
 #include <functional>
 #include <memory>
 #include <source_location>
 #include <stdexcept>
 #include <string_view>
-#include <expected>
 
 #if defined(__cpp_lib_stacktrace)
 #include <stacktrace>
@@ -64,7 +64,8 @@ void equal(const Expected &expected, const Actual &actual, std::source_location 
 }
 
 template <typename Expected, typename Actual, typename Error>
-void equal(const Expected &expected, std::expected<Actual, Error> actual, std::source_location loc = std::source_location::current())
+void equal(const Expected &expected, std::expected<Actual, Error> actual,
+           std::source_location loc = std::source_location::current())
 {
 
     if (!actual)
@@ -141,6 +142,15 @@ void same(const std::shared_ptr<Expected> &expected, const std::shared_ptr<Actua
           std::source_location loc = std::source_location::current())
 {
     if (expected.get() != actual.get())
+    {
+        fail("Expected to be same", loc);
+    }
+}
+
+template <typename Expected, typename Actual>
+void same(const Expected &expected, const Actual &actual, std::source_location loc = std::source_location::current())
+{
+    if (&expected != &actual)
     {
         fail("Expected to be same", loc);
     }

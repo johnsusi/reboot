@@ -22,6 +22,7 @@ target_link_libraries(engine
         Bullet3Collision
         Bullet3Common
         glad::glad
+        imgui::imgui
         nlohmann_json::nlohmann_json
         SDL3::SDL3
         unofficial::lua::lua-cpp

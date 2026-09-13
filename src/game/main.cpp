@@ -12,11 +12,14 @@ int main(int argc, char *argv[])
         auto videoSystem = VideoSystem{};
         auto inputSystem = InputSystem{};
 
-        assetManager.LoadAssets("data/assets/pill.json");
+        auto material = assetManager.LoadAssets("data/assets/material.json");
 
-        videoSystem.ListDisplayModes();
+        auto scene = assetManager.LoadAssets("scene.fbx");
 
         auto state = GameState{};
+        state.material = material->GetMaterial("");
+        state.entities.push_back(Entity{.camera = CameraComponent{scene->GetCamera("Camera")}});
+        state.entities.push_back(Entity{.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")}});
 
         while (state.running)
         {

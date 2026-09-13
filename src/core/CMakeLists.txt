@@ -5,6 +5,13 @@ target_compile_features(core PUBLIC cxx_std_23)
 target_sources(core
     PRIVATE
         assert.cpp
+        factory.cpp
     PUBLIC FILE_SET HEADERS BASE_DIRS .. FILES
         assert.h
+        factory.h
+)
+
+target_tests(core
+    assert.test.cpp
+    factory.test.cpp
 )

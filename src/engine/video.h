@@ -2,9 +2,9 @@
 
 #include <engine/state.h>
 
+#include <memory>
 #include <stdexcept>
 #include <string>
-#include <memory>
 #include <vector>
 
 struct DisplayMode
@@ -25,11 +25,12 @@ struct VideoOptions
     std::string title;
     uint32_t width = 1920;
     uint32_t height = 1080;
+    double aspectRatio = 16.0 / 9.0;
 };
 
 class VideoSystem
 {
-public:
+  public:
     VideoSystem(VideoOptions = {});
     ~VideoSystem() noexcept;
 
@@ -37,7 +38,7 @@ public:
 
     auto ListDisplayModes() noexcept -> std::vector<DisplayMode>;
 
-private:
+  private:
     struct impl;
     std::shared_ptr<impl> _impl;
     VideoOptions _options;

@@ -1,10 +1,8 @@
 #include "input.h"
 
-#include <SDL3/SDL.h>
 #include <glad/glad.h>
-#include <cstdlib>
-
-#include <iostream>
+#include <imgui_impl_sdl3.h>
+#include <SDL3/SDL.h>
 
 using namespace std::literals;
 
@@ -29,6 +27,8 @@ void InputSystem::Update(GameState &state)
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
+        ImGui_ImplSDL3_ProcessEvent(&event);
+
         switch (event.type)
         {
         case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
