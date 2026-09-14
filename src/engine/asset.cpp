@@ -244,7 +244,7 @@ AssetManager::~AssetManager() noexcept
 {
 }
 
-std::shared_ptr<AssetContainer> AssetManager::LoadAssets(std::filesystem::path path)
+AssetContainer::Ptr AssetManager::LoadAssets(std::filesystem::path path)
 {
 
     try
@@ -312,7 +312,7 @@ std::shared_ptr<AssetContainer> AssetManager::LoadAssets(std::filesystem::path p
         else if (Assimp::Importer importer; importer.IsExtensionSupported(extension))
         {
 
-            const aiScene *scene = importer.ReadFile(std::string{path}, aiProcess_Triangulate);
+            const aiScene *scene = importer.ReadFile(path.string(), aiProcess_Triangulate);
 
             if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
             {
@@ -408,8 +408,8 @@ std::shared_ptr<AssetContainer> AssetManager::LoadAssets(std::filesystem::path p
             //     }
             // }
         }
-        return AssetContainer::Create(std::move(containerName), std::move(cameras), std::move(lights),
-                                      std::move(models), std::move(materials));
+        return AssetContainer::Create(containerName.string(), std::move(cameras), std::move(lights), std::move(models),
+                                      std::move(materials));
     }
     catch (const std::exception &e)
     {

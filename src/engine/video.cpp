@@ -590,7 +590,7 @@ void VideoSystem::Update(GameState &state)
     glUseProgram(0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    ImGui::Image(_impl->sceneTarget->GetColorTexture(), imageSize, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+    ImGui::Image(_impl->sceneTarget.GetColorTexture(), imageSize, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
     ImGui::End();
 
     ImGui::Render();

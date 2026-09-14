@@ -27,12 +27,12 @@ class AssetId
         return {next++};
     }
 
-    static constexpr AssetId Invalid()
+    static AssetId Invalid()
     {
         return {0};
     }
 
-    constexpr explicit operator bool() const
+    explicit operator bool() const
     {
         return _value != 0;
     }
@@ -172,8 +172,8 @@ class AssetContainer : public Managed<AssetContainer>, public std::enable_shared
         return {shared_from_this(), &*it};
     }
 
-    explicit AssetContainer(Factory, std::string name, std::vector<Camera> cameras, std::vector<Light> lights,
-                            std::vector<Model> models, std::vector<Material> materials)
+    AssetContainer(Factory, std::string name, std::vector<Camera> cameras, std::vector<Light> lights,
+                   std::vector<Model> models, std::vector<Material> materials)
         : _name(std::move(name)), _cameras(std::move(cameras)), _lights(std::move(lights)), _models(std::move(models)),
           _materials(std::move(materials))
     {
@@ -203,7 +203,7 @@ class AssetManager
   public:
     AssetManager(AssetOptions options = {});
     ~AssetManager() noexcept;
-    std::shared_ptr<AssetContainer> LoadAssets(std::filesystem::path p);
+    AssetContainer::Ptr LoadAssets(std::filesystem::path p);
 
   private:
     AssetOptions _options;
