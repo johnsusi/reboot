@@ -1,0 +1,12 @@
+{
+    "type": "ShaderMaterial",
+    "fragmentShaders": [
+        "shader.frag.glsl"
+    ],
+    "vertexShaders": [
+        "shader.vert.glsl"
+    ],
+    "textures": [
+        "test.png"
+    ]
+}
