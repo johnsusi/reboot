@@ -3,6 +3,7 @@
 #include <engine/video.h>
 
 #include <iostream>
+#include <map>
 
 int main(int argc, char *argv[])
 {
@@ -12,10 +13,26 @@ int main(int argc, char *argv[])
         auto videoSystem = VideoSystem{};
         auto inputSystem = InputSystem{};
 
-        for (auto &&displayMode : videoSystem.ListDisplayModes().List())
+        auto displayInfo = videoSystem.GetDisplayInfo();
+
+        for (auto display : displayInfo.displays)
         {
-            std::cout << displayMode.width << "x" << displayMode.height << " at " << displayMode.frequency << "Hz"
-                      << std::endl;
+            std::cout << "Display " << display.name << std::endl;
+            std::map<int, std::vector<DisplayMode>> byF;
+            for (auto &&displayMode : display.modes)
+            {
+                byF[std::lround(displayMode.refreshRate)].push_back(displayMode);
+            }
+
+            for (auto &&[f, displayModes] : byF)
+            {
+                std::cout << "    " << "Frequency " << f << "Hz" << std::endl;
+                for (auto &&displayMode : displayModes)
+                {
+                    std::cout << "        " << displayMode.width << "x" << displayMode.height << " at "
+                              << displayMode.refreshRate << "Hz" << std::endl;
+                }
+            }
         }
 
         auto material = assetManager.LoadAssets("data/assets/material.json");

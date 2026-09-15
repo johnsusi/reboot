@@ -8,14 +8,6 @@
 #include <string>
 #include <vector>
 
-struct DisplayMode
-{
-    std::string name;
-    int width;
-    int height;
-    double frequency;
-};
-
 class VideoError : public std::runtime_error
 {
     using std::runtime_error::runtime_error;
@@ -29,21 +21,33 @@ struct VideoOptions
     double aspectRatio = 16.0 / 9.0;
 };
 
-class DisplayModes
+struct RefreshRate
 {
-  public:
-    DisplayModes(std::vector<DisplayMode> displayModes) : _displayModes(std::move(displayModes))
-    {
-    }
-    const DisplayMode &Current() const noexcept;
-    auto List() const noexcept -> std::span<DisplayMode>
-    {
-        return {_displayModes};
-    }
+    int numerator;
+    int denominator;
+};
 
-  private:
-    DisplayMode _current;
-    std::vector<DisplayMode> _displayModes;
+struct DisplayMode
+{
+    int width;
+    int height;
+
+    float pixelDensity;
+    float refreshRate;
+    RefreshRate refreshRateExact;
+};
+
+struct Display
+{
+    std::string name;
+    std::vector<DisplayMode> modes;
+    DisplayMode currentMode;
+};
+
+struct DisplayInfo
+{
+    Display currentDisplay;
+    std::vector<Display> displays;
 };
 
 class VideoSystem
@@ -54,7 +58,7 @@ class VideoSystem
 
     void Update(GameState &state);
 
-    auto ListDisplayModes() noexcept -> DisplayModes;
+    auto GetDisplayInfo() noexcept -> DisplayInfo;
 
   private:
     struct impl;

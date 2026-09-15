@@ -628,34 +628,41 @@ void VideoSystem::Update(GameState &state)
 //             SDL_GetCurrentDisplayMode(display);
 // }
 
-auto VideoSystem::ListDisplayModes() noexcept -> DisplayModes
+auto VideoSystem::GetDisplayInfo() noexcept -> DisplayInfo
 {
-    std::vector<DisplayMode> result;
+    DisplayInfo result;
 
     int displayCount = 0;
-    const SDL_DisplayID *displays = SDL_GetDisplays(&displayCount);
+    auto displays = SDL_GetDisplays(&displayCount);
 
     for (int index = 0; index < displayCount; ++index)
     {
-        SDL_DisplayID display = displays[index];
 
-        std::string name = SDL_GetDisplayName(display);
+        Display display;
+
+        SDL_DisplayID id = displays[index];
+
+        display.name = SDL_GetDisplayName(id);
 
         int modeCount = 0;
-        SDL_DisplayMode **modes = SDL_GetFullscreenDisplayModes(display, &modeCount);
+        auto modes = SDL_GetFullscreenDisplayModes(id, &modeCount);
 
         if (!modes)
             continue;
 
         for (int modeIndex = 0; modeIndex < modeCount; ++modeIndex)
         {
-            const SDL_DisplayMode *mode = modes[modeIndex];
-            result.emplace_back(name, mode->w, mode->h, mode->refresh_rate);
+            auto mode = modes[modeIndex];
+            display.modes.emplace_back(mode->w, mode->h, mode->pixel_density, mode->refresh_rate,
+                                       RefreshRate{mode->refresh_rate_numerator, mode->refresh_rate_denominator});
         }
 
         SDL_free(modes);
+
+        result.displays.emplace_back(std::move(display));
     }
 
+    SDL_free(displays);
     return {std::move(result)};
 }
 
