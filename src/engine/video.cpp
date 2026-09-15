@@ -628,7 +628,7 @@ void VideoSystem::Update(GameState &state)
 //             SDL_GetCurrentDisplayMode(display);
 // }
 
-auto VideoSystem::ListDisplayModes() noexcept -> std::vector<DisplayMode>
+auto VideoSystem::ListDisplayModes() noexcept -> DisplayModes
 {
     std::vector<DisplayMode> result;
 
@@ -656,7 +656,7 @@ auto VideoSystem::ListDisplayModes() noexcept -> std::vector<DisplayMode>
         SDL_free(modes);
     }
 
-    return result;
+    return {std::move(result)};
 }
 
 // ImGui_ImplOpenGL3_NewFrame();

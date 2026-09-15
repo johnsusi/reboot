@@ -12,6 +12,12 @@ int main(int argc, char *argv[])
         auto videoSystem = VideoSystem{};
         auto inputSystem = InputSystem{};
 
+        for (auto &&displayMode : videoSystem.ListDisplayModes().List())
+        {
+            std::cout << displayMode.width << "x" << displayMode.height << " at " << displayMode.frequency << "Hz"
+                      << std::endl;
+        }
+
         auto material = assetManager.LoadAssets("data/assets/material.json");
 
         auto scene = assetManager.LoadAssets("scene.fbx");
@@ -21,11 +27,11 @@ int main(int argc, char *argv[])
         state.entities.push_back(Entity{.camera = CameraComponent{scene->GetCamera("Camera")}});
         state.entities.push_back(Entity{.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")}});
 
-        while (state.running)
-        {
-            inputSystem.Update(state);
-            videoSystem.Update(state);
-        }
+        // while (state.running)
+        // {
+        //     inputSystem.Update(state);
+        //     videoSystem.Update(state);
+        // }
     }
     catch (const std::exception &err)
     {

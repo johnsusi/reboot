@@ -3,6 +3,7 @@
 #include <engine/state.h>
 
 #include <memory>
+#include <span>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -28,6 +29,23 @@ struct VideoOptions
     double aspectRatio = 16.0 / 9.0;
 };
 
+class DisplayModes
+{
+  public:
+    DisplayModes(std::vector<DisplayMode> displayModes) : _displayModes(std::move(displayModes))
+    {
+    }
+    const DisplayMode &Current() const noexcept;
+    auto List() const noexcept -> std::span<DisplayMode>
+    {
+        return {_displayModes};
+    }
+
+  private:
+    DisplayMode _current;
+    std::vector<DisplayMode> _displayModes;
+};
+
 class VideoSystem
 {
   public:
@@ -36,7 +54,7 @@ class VideoSystem
 
     void Update(GameState &state);
 
-    auto ListDisplayModes() noexcept -> std::vector<DisplayMode>;
+    auto ListDisplayModes() noexcept -> DisplayModes;
 
   private:
     struct impl;
