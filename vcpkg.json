@@ -40,6 +40,12 @@
             "name": "sdl3"
         },
         {
+            "name": "skia",
+            "features": [
+                "gl"
+            ]
+        },
+        {
             "name": "stb"
         }
     ]

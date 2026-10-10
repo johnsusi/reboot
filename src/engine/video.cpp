@@ -17,6 +17,9 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl3.h>
 
+#include <skia/gpu/ganesh/GrDirectContext.h>
+#include <skia/gpu/ganesh/gl/GrGLInterface.h>
+
 using namespace std::literals;
 
 namespace
@@ -249,6 +252,9 @@ struct VideoSystem::impl
     std::map<AssetId, CompiledMaterial> materials;
     std::map<AssetId, CompiledModel> models;
 
+    sk_sp<const GrGLInterface> interface;
+    sk_sp<GrDirectContext> skiaContext;
+
     void EnsureDebugQuad()
     {
         if (debugQuadVao)
@@ -441,6 +447,9 @@ VideoSystem::VideoSystem(VideoOptions options) : _options(std::move(options)), _
     // {
     ImGui_ImplOpenGL3_Init("#version 330 core");
     // }
+
+    _impl->interface = GrGLMakeNativeInterface();
+    _impl->skiaContext = GrDirectContexts::MakeGL(_impl->interface);
 }
 
 VideoSystem::~VideoSystem() noexcept

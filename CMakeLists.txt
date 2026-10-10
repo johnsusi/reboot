@@ -27,6 +27,7 @@ find_package(nlohmann_json CONFIG REQUIRED)
 find_package(SDL3 CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 find_package(unofficial-lua CONFIG REQUIRED)
+find_package(unofficial-skia CONFIG REQUIRED)
 
 add_subdirectory(src/core)
 add_subdirectory(src/engine)

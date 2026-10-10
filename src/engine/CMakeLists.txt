@@ -26,6 +26,7 @@ target_link_libraries(engine
         nlohmann_json::nlohmann_json
         SDL3::SDL3
         unofficial::lua::lua-cpp
+        unofficial::skia::skia
     PUBLIC
         glm::glm
 )

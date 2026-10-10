@@ -59,9 +59,7 @@ class VideoSystem
     void Update(GameState &state);
 
     auto GetDisplayInfo() noexcept -> DisplayInfo;
-
-  private:
-    struct impl;
+  dssdsasdawasddsdwwa private : struct impl;
     std::shared_ptr<impl> _impl;
     VideoOptions _options;
 };
