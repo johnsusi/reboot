@@ -24,6 +24,8 @@ tasks:
     desc: Configure the project with CMake
     cmds:
       - cmake --preset '{{ .PRESET }}' {{ .CONFIGURE_ARGS }}
+    status:
+      - test -f '{{ .BUILD_DIR }}/CMakeCache.txt'
 
   build:
     desc: Build the project

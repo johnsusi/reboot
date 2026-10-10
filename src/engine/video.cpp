@@ -146,6 +146,8 @@ class RenderTarget : Managed<RenderTarget>
         if (width == _width && height == _height)
             return;
         Destroy();
+        _width = width;
+        _height = height;
         Create();
     }
 

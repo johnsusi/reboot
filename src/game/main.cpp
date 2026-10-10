@@ -30,25 +30,26 @@ int main(int argc, char *argv[])
                 for (auto &&displayMode : displayModes)
                 {
                     std::cout << "        " << displayMode.width << "x" << displayMode.height << " at "
-                              << displayMode.refreshRate << "Hz" << std::endl;
+                              << displayMode.refreshRate << "Hz" << " " << displayMode.refreshRateExact.numerator << ":"
+                              << displayMode.refreshRateExact.denominator << std::endl;
                 }
             }
         }
 
         auto material = assetManager.LoadAssets("data/assets/material.json");
 
-        auto scene = assetManager.LoadAssets("scene.fbx");
+        auto scene = assetManager.LoadAssets("data/assets/scene.fbx");
 
         auto state = GameState{};
         state.material = material->GetMaterial("");
         state.entities.push_back(Entity{.camera = CameraComponent{scene->GetCamera("Camera")}});
         state.entities.push_back(Entity{.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")}});
 
-        // while (state.running)
-        // {
-        //     inputSystem.Update(state);
-        //     videoSystem.Update(state);
-        // }
+        while (state.running)
+        {
+            inputSystem.Update(state);
+            videoSystem.Update(state);
+        }
     }
     catch (const std::exception &err)
     {

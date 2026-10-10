@@ -6,6 +6,11 @@ project(Game
     VERSION 1.0.0
 )
 
+# Make the compiler selected by the Visual Studio generator visible to CMake Tools.
+if(NOT DEFINED CACHE{CMAKE_CXX_COMPILER})
+    set(CMAKE_CXX_COMPILER "${CMAKE_CXX_COMPILER}" CACHE FILEPATH "C++ compiler")
+endif()
+
 list(PREPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_LIST_DIR}/cmake"
 )
