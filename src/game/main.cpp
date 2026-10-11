@@ -42,8 +42,13 @@ int main(int argc, char *argv[])
 
         auto state = GameState{};
         state.material = material->GetMaterial("");
-        state.entities.push_back(Entity{.camera = CameraComponent{scene->GetCamera("Camera")}});
-        state.entities.push_back(Entity{.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")}});
+
+        auto cameraId =
+            state.CreateEntity([&](auto entity) { entity.camera = CameraComponent{scene->GetCamera("Camera")}; });
+        state.CreateEntity([&](auto entity) {
+            entity.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")};
+            entity.transform = TransformComponent{.scale = glm::vec3(0.1, 0.1, 0.1)};
+        });
 
         while (state.running)
         {

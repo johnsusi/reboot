@@ -2,11 +2,11 @@
 
 #include "asset.h"
 
-#include <optional>
-
+#include <concepts>
+#include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/mat4x4.hpp>
-#include <glm/glm.hpp>
+#include <optional>
 
 struct TransformComponent
 {
@@ -49,7 +49,17 @@ struct Entity
 struct GameState
 {
     bool running = true;
+    std::size_t activeCameraId = 0;
     std::shared_ptr<const Camera> camera;
     std::shared_ptr<const Material> material;
     std::vector<Entity> entities;
+
+    std::size_t CreateEntity(std::invocable<Entity &> auto &&init)
+    {
+        auto id = entities.size();
+        Entity entity;
+        init(entity);
+        entities.push_back(std::move(entity));
+        return id;
+    }
 };

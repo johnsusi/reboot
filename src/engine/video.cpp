@@ -449,7 +449,7 @@ VideoSystem::VideoSystem(VideoOptions options) : _options(std::move(options)), _
     // }
 
     _impl->interface = GrGLMakeNativeInterface();
-    _impl->skiaContext = GrDirectContexts::MakeGL(_impl->interface);
+    // _impl->skiaContext = GrDirectContext::MakeGL(_impl->interface);
 }
 
 VideoSystem::~VideoSystem() noexcept
