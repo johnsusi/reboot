@@ -23,6 +23,17 @@
             ]
         },
         {
+            "name": "ci-ninja-clang-cl-windows",
+            "inherits": [
+                "ci",
+                "ninja",
+                "clang-cl",
+                "windows"
+            ],
+            "displayName": "LLVM clang-cl",
+            "description": "Targeting MSVC-compatible LLVM Clang"
+        },
+        {
             "name": "ci-ninja-gcc",
             "inherits": [
                 "ci",

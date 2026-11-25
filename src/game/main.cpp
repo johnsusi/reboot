@@ -5,6 +5,12 @@
 #include <iostream>
 #include <map>
 
+class SpriteRenderer
+{
+  public:
+  private:
+};
+
 int main(int argc, char *argv[])
 {
     try
@@ -43,12 +49,12 @@ int main(int argc, char *argv[])
         auto state = GameState{};
         state.material = material->GetMaterial("");
 
-        auto cameraId =
-            state.CreateEntity([&](auto entity) { entity.camera = CameraComponent{scene->GetCamera("Camera")}; });
-        state.CreateEntity([&](auto entity) {
-            entity.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")};
-            entity.transform = TransformComponent{.scale = glm::vec3(0.1, 0.1, 0.1)};
-        });
+        // auto cameraId =
+        //     state.CreateEntity([&](auto entity) { entity.camera = CameraComponent{scene->GetCamera("Camera")}; });
+        // state.CreateEntity([&](auto entity) {
+        //     entity.meshRenderer = MeshRenderComponent{true, scene->GetModel("Cube")};
+        //     entity.transform = TransformComponent{.scale = glm::vec3(0.1, 0.1, 0.1)};
+        // });
 
         while (state.running)
         {

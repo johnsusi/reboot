@@ -11,6 +11,14 @@
             }
         },
         {
+            "name": "clang-cl",
+            "hidden": true,
+            "environment": {
+                "CC": "clang-cl",
+                "CXX": "clang-cl"
+            }
+        },
+        {
             "name": "clang-homebrew",
             "hidden": true,
             "environment": {
